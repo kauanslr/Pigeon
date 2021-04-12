@@ -101,33 +101,6 @@ class PublisherTest extends TestCase
         $this->assertEquals($msg_data, json_decode($received->body, true));
     }
 
-    public function test_it_should_publish_a_remote_procedure_call()
-    {
-        // setup
-        $this->channel->exchange_declare($this->exchange, 'fanout', false, true, false, false, false, new AMQPTable([
-            'x-dead-letter-exchange' => 'dead.letter',
-        ]));
-        $this->channel->queue_declare($this->queue);
-        $this->channel->queue_bind($this->queue, $this->exchange);
-        $this->app['config']->set('pigeon.exchange', $this->exchange);
-        $this->app['config']->set('pigeon.exchange_type', 'direct');
-        $data = [
-            'pigeon.foo' => 'dove.bar',
-        ];
-
-        // act
-        $reply_to = $this->pigeon->exchange($this->exchange, 'fanout')
-            ->rpc($data);
-
-        // wait message publish and respond
-        sleep(1);
-        $message = $this->channel->basic_get($this->queue);
-        $this->assertEquals($reply_to, $message->get('reply_to'));
-        $this->assertEquals($data, json_decode($message->body, true));
-        $this->assertTrue(Str::contains($reply_to, 'amq'));
-        $this->channel->queue_delete($reply_to);
-    }
-
     public function test_it_should_publish_event()
     {
         // setup
