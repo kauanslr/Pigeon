@@ -4,7 +4,6 @@ namespace Convenia\Pigeon\Tests\Unit;
 
 use Convenia\Pigeon\Publisher\Publisher;
 use Convenia\Pigeon\Tests\TestCase;
-use Illuminate\Support\Collection;
 use Mockery;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Message\AMQPMessage;

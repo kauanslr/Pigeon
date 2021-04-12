@@ -4,7 +4,6 @@ namespace Convenia\Pigeon\Tests\Integration\Publisher;
 
 use Convenia\Pigeon\Drivers\Driver;
 use Convenia\Pigeon\Tests\Integration\TestCase;
-use Illuminate\Support\Str;
 use PhpAmqpLib\Message\AMQPMessage;
 use PhpAmqpLib\Wire\AMQPTable;
 
